@@ -239,6 +239,7 @@ class Mamba2Mixer(nn.Module):
                 return_varlen_states=True,
                 return_final_states=False,
             )
+
             out.append(rearrange(y, "b l h p -> (b l) (h p)"))
 
             # copy new ssm state

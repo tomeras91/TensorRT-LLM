@@ -558,6 +558,10 @@ class MambaCacheManager(BaseResourceManager):
             for offset, idx in enumerate(pp_layers)
         }
 
+        import os
+        ssm_dtype = torch.float32 if int(os.environ.get("MAMBA_CACHE_FP32",
+                                                        "0")) else dtype
+
         # mamba conv states
         self.conv_states = torch.empty(
             size=[
@@ -579,7 +583,7 @@ class MambaCacheManager(BaseResourceManager):
                 head_dim,
                 d_state,
             ],
-            dtype=dtype,
+            dtype=ssm_dtype,
             device=device,
         )
 
